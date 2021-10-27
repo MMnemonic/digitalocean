@@ -1,12 +1,17 @@
 # DEV SETTINGS
+
 import os
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
-ENVIRONMENT = "LOCAL"
-APP_URL = "http://localhost:8000/"
+
+ENVIRONMENT = os.getenv("APPSETTING_WEBSITE_DEPLOY_TYPE")
+
 GOOGLE_ANALYTICS_PROPERTY_ID = 'UA-100016333-2'
+
 STATIC_URL = '/static/'
+
 SITE_ID = 2
+
 # Local logging configuration. This config applies only to
 # the development environment. There is a unique logging config
 # for each environment (e.g. staging, production).
@@ -87,12 +92,15 @@ LOGGING = {
         }
     }
 }
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LOGGING_DIR = BASE_DIR+"/logging/"
+
+LOGGING_DIR = "./logging/"
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '*+3c^ymz%&#21hu7r-+l4)9o62m2_fl9(0_kve!%Cp)4cge*g25%'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
 # For Debug Toolbar
 INTERNAL_IPS = [
     # ...
@@ -100,24 +108,15 @@ INTERNAL_IPS = [
     '96.232.139.24',
     # ...
 ]
+
 ADMINS = (
     ('Admin', 'management@stonealgo.com'),
 )
+
 MANAGERS = ADMINS
+
 ALLOWED_HOSTS = "*"
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'stonealgo_dev',
-#         'HOST': 'localhost',
-#         'PORT': '3306',
-#         'USER': 'root',
-#         'PASSWORD': '',
-#         'OPTIONS': {
-#             'read_default_file': '/opt/lampp/etc/my.cnf',
-#         }
-#     }
-# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -127,24 +126,22 @@ DATABASES = {
         'USER': 'stonealgo@stonealgo-dev',
         'PASSWORD': 'ColdHarbor2018',
         'OPTIONS': {
+
         }
     }
 }
+
 SERVER_EMAIL = 'management@stonealgo.com'
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.mailtrap.io'
-EMAIL_PORT = '2525'
-# Account 1
-# EMAIL_HOST_USER = '7736bf798688fe'
-# EMAIL_HOST_PASSWORD = 'bb26aa8f6595f0'
-
-# Account 2
-EMAIL_HOST_USER = '06460a77433ad4'
-EMAIL_HOST_PASSWORD = '4937b45f8533c0'
-
+EMAIL_HOST = 'smtp.office365.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'management@stonealgo.com'
+EMAIL_HOST_PASSWORD = 'ColdHarbor18!'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'management@stonealgo.com'
 THEME_CONTACT_EMAIL = 'management@stonealgo.com'
+
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
 SOCIALACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
@@ -158,7 +155,9 @@ ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_ADAPTER = 'main_app.account_adapter.CustomAccountAdapter'
 SOCIALACCOUNT_ADAPTER = 'main_app.account_adapter.MySocialAccountAdapter'
+
 ACCOUNT_USERNAME_REQUIRED = False
+
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'SCOPE': [
@@ -193,43 +192,43 @@ SOCIALACCOUNT_PROVIDERS = {
         'VERSION': 'v2.12',
     }
 }
+
 INTERNAL_USERS = [474, 449, 1101]
+
 # Cookie name this can be whatever you want
 SESSION_COOKIE_NAME = 'sessionid'  # use the sessionid in your views code
+
 # the module to store sessions data
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
 # age of cookie in seconds (default: 2 weeks)
 SESSION_COOKIE_AGE = 24 * 60 * 60 * 30
+
 # whether a user's session cookie expires when the web browser is closed
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
 # whether the session cookie should be secure (https:// only)
 SESSION_COOKIE_SECURE = False
+
 STRIPE_PUBLISHABLE_KEY = 'pk_test_kEEQs6mjTjszAED95qIljcMs00xT6gP8RY'
 STRIPE_SECRET_KEY = 'sk_test_UOotGVCBfG6KtsZ2lssYs34t00DN1w0PLB'
 STRIPE_TEST_SECRET_KEY = 'sk_test_UOotGVCBfG6KtsZ2lssYs34t00DN1w0PLB'
 STRIPE_ENDPOINT_SECRET = 'whsec_EnDrscnouBsZXpLVqjZ1Nlp0enb8oPh3'
+
 STRIPE_LIVE_MODE = False
 DJSTRIPE_WEBHOOK_SECRET = "whsec_xxx"  # We don't use this, but it must be set
 DJSTRIPE_FOREIGN_KEY_TO_FIELD = 'id'
+
 sentry_sdk.init(
     dsn="https://27f0f9b8044d4d3ea882a1a091ba84fd@o932765.ingest.sentry.io/5902617",
     integrations=[DjangoIntegration()],
+
     # Set traces_sample_rate to 1.0 to capture 100%
     # of transactions for performance monitoring.
     # We recommend adjusting this value in production.
     traces_sample_rate=1.0,
+
     # If you wish to associate users to errors (assuming you are using
     # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True
 )
-
-TWILIO_ACCOUNT_SID="AC65eb62be40279cfcdf5f73f266301b71"
-TWILIO_AUTH_TOKEN="e51f7778d1d47f985343b05bade0e525"
-TWILIO_DEFAULT_FROM="+12106255866"
-
-FEDEX_API_URL="https://apis-sandbox.fedex.com"
-FEDEX_API_KEY = "l7562a9c45277d4fbe8e0d76ef4cf018fe"
-FEDEX_API_SECRET = "09f2e3cf80ec4db9b0fbba26993e4a65"
-FEDEX_ACCOUNT_USERNAME = "stonealgo"
-FEDEX_ACCOUNT_PASSWORD = "ColdHarbor18"
-FEDEX_ACCOUNT_NUMBER = "510087020"
